@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#3D5A47">
+<title>🇳🇿 紐西蘭家族之旅 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{background:#F2EDE4;font-family:'Noto Sans TC',sans-serif;font-weight:300;color:#2A2A1E;-webkit-text-size-adjust:100%}
+a{color:#5A7A8A;text-decoration:none}
+input,select,textarea{font-family:inherit;font-size:.88rem;-webkit-appearance:none;appearance:none}
+button{font-family:inherit;cursor:pointer}
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-thumb{background:#C4D9C4;border-radius:2px}
+
+/* Layout */
+.app{max-width:480px;margin:0 auto;min-height:100vh;background:#F2EDE4}
+
+/* Hero */
+.hero{position:relative;background:#3D5A47;overflow:hidden}
+.hero-text{position:absolute;bottom:0;left:0;right:0;padding:1.2rem 1.4rem 1rem;background:linear-gradient(transparent,rgba(40,60,40,.78))}
+.hero-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:2.3rem;color:white;line-height:1}
+.hero-sub{font-family:'Noto Serif TC',serif;font-weight:300;font-size:.95rem;color:rgba(255,255,255,.8);letter-spacing:.18em;margin-top:.2rem}
+.hero-pills{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.8rem}
+.pill{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:2rem;padding:.28rem .75rem;font-size:.72rem;color:white}
+.pill.gold{background:rgba(196,103,74,.65);border-color:rgba(232,160,136,.5)}
+
+/* Flight bar */
+.fbar{background:#3D5A47;border-top:1px solid rgba(255,255,255,.1);padding:.85rem 1.4rem;display:flex;gap:.8rem 2rem;flex-wrap:wrap}
+.fseg-dir{font-size:.6rem;color:#8AAE8A;letter-spacing:.1em;margin-bottom:.1rem}
+.fseg-route{font-family:'Noto Serif TC',serif;font-size:.9rem;color:white;font-weight:600}
+.fseg-time{font-size:.7rem;color:rgba(255,255,255,.65)}
+
+/* Nav */
+.nav{position:sticky;top:0;z-index:200;background:rgba(242,237,228,.97);backdrop-filter:blur(12px);border-bottom:1px solid #DDD8CE;display:flex;overflow-x:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav-btn{background:none;border:none;border-bottom:2.5px solid transparent;padding:.85rem .95rem;font-size:.78rem;font-weight:400;color:#7A7A6A;white-space:nowrap;flex-shrink:0;transition:all .2s}
+.nav-btn.active{color:#3D5A47;border-bottom-color:#C4674A;font-weight:500}
+
+/* Content */
+.content{padding:1.2rem 1rem 6rem}
+
+/* Bottom nav */
+.bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:rgba(242,237,228,.97);backdrop-filter:blur(14px);border-top:1px solid #DDD8CE;display:flex;z-index:300}
+.bnav-btn{flex:1;background:none;border:none;padding:.6rem .3rem .5rem;display:flex;flex-direction:column;align-items:center;gap:.18rem}
+.bnav-icon{font-size:1.2rem}
+.bnav-label{font-size:.6rem;color:#7A7A6A;font-family:inherit;font-weight:400}
+.bnav-btn.active .bnav-label{color:#3D5A47;font-weight:500}
+.bnav-dot{width:18px;height:2.5px;background:#C4674A;border-radius:2rem}
+
+/* Cards */
+.card{background:#FDFAF6;border-radius:14px;border:1px solid #DDD8CE;padding:1.2rem 1.1rem;margin-bottom:.8rem;box-shadow:0 2px 10px rgba(61,90,71,.05)}
+.card:active{transform:scale(.985)}
+
+/* Weather */
+.weather-bar{background:#E8E0D4;border-radius:10px;padding:.6rem .9rem;display:flex;align-items:center;gap:.8rem;margin-bottom:.8rem}
+.w-icon{font-size:1.5rem}
+.w-temp{font-family:'Noto Serif TC',serif;font-size:.95rem;font-weight:700;color:#2A2A1E}
+.w-desc{font-size:.65rem;color:#7A7A6A}
+.w-badge{font-size:.58rem;color:white;border-radius:2rem;padding:.1rem .5rem;white-space:nowrap;margin-left:auto}
+.w-real{background:#5A7A62}
+.w-climate{background:rgba(196,148,58,.7)}
+
+/* Timeline */
+.t-item{display:grid;grid-template-columns:68px 1fr;margin-bottom:0}
+.t-left{display:flex;flex-direction:column;align-items:center;padding-top:1.5rem}
+.t-bubble{width:42px;height:42px;border-radius:50%;background:#3D5A47;color:white;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 8px rgba(44,74,50,.28)}
+.t-num{font-family:'Noto Serif TC',serif;font-size:.95rem;font-weight:700;line-height:1}
+.t-day{font-size:.42rem;letter-spacing:.06em;opacity:.7;text-transform:uppercase}
+.t-stem{width:1px;flex:1;min-height:20px;background:linear-gradient(to bottom,rgba(44,74,50,.22),transparent);margin-top:5px}
+.t-card{background:#FDFAF6;border-radius:14px;padding:1.5rem;margin:.9rem 0 .9rem 1rem;border:1px solid #DDD8CE;box-shadow:0 2px 12px rgba(28,43,30,.04)}
+.card-date{font-size:.65rem;color:#7A7A6A;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.2rem}
+.card-title{font-family:'Noto Serif TC',serif;font-size:1.05rem;font-weight:600;color:#3D5A47;line-height:1.2}
+.card-en{font-style:italic;font-size:.78rem;color:#7A7A6A;margin-top:.12rem}
+.acts{list-style:none;margin-top:.5rem}
+.acts li{display:flex;align-items:flex-start;gap:.6rem;padding:.38rem 0;border-bottom:1px dashed #DDD8CE;font-size:.85rem;color:#333}
+.acts li:last-child{border:none}
+.act-dot{width:5px;height:5px;border-radius:50%;background:#8AAE8A;flex-shrink:0;margin-top:.55em}
+.note-box{background:rgba(196,148,58,.08);border-left:3px solid #C4943A;border-radius:0 8px 8px 0;padding:.55rem .85rem;font-size:.8rem;color:#554;margin-bottom:.7rem}
+.accom-box{margin-top:1rem;background:rgba(90,125,94,.07);border-radius:10px;padding:.75rem .9rem;display:flex;align-items:flex-start;gap:.7rem}
+.accom-name{font-size:.87rem;font-weight:500;color:#3D5A47}
+.accom-detail{font-size:.72rem;color:#7A7A6A;margin-top:.12rem}
+.badge{display:inline-block;font-size:.65rem;padding:.15rem .55rem;border-radius:2rem;margin-left:.5rem}
+.badge-booked{background:rgba(90,122,90,.2);color:#5A7A62}
+.badge-pending{background:rgba(196,103,74,.15);color:#C4674A}
+.badge-same{background:#E8E0D4;color:#7A7A6A}
+
+/* Island divider */
+.idiv{display:flex;align-items:center;gap:1.2rem;margin:1.8rem 0 1rem}
+.idiv hr{flex:1;border:none;border-top:1px solid #DDD8CE}
+.idiv-tag{background:#3D5A47;color:#C8DCC8;padding:.35rem 1.1rem;border-radius:2rem;font-size:.72rem;letter-spacing:.1em;white-space:nowrap}
+
+/* Stats grid */
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:1.5rem}
+.stat-card{background:#FDFAF6;border-radius:14px;padding:1rem;border:1px solid #DDD8CE}
+.stat-icon{font-size:1.3rem;margin-bottom:.3rem}
+.stat-lbl{font-size:.65rem;color:#7A7A6A;letter-spacing:.08em;text-transform:uppercase}
+.stat-val{font-family:'Noto Serif TC',serif;font-size:.92rem;font-weight:600;color:#3D5A47;margin-top:.15rem}
+
+/* Bookings */
+.bk-card{background:#FDFAF6;border-radius:14px;padding:1.2rem;border-left:4px solid #C4674A;border-top:1px solid #DDD8CE;border-right:1px solid #DDD8CE;border-bottom:1px solid #DDD8CE;margin-bottom:1rem;box-shadow:0 2px 10px rgba(61,90,71,.05)}
+.bk-card.booked{border-left-color:#5A7A62}
+.bk-card.free{border-left-color:#5A7A8A}
+.bk-title{font-family:'Noto Serif TC',serif;font-size:1rem;font-weight:600;color:#3D5A47}
+.bk-en{font-style:italic;font-size:.72rem;color:#7A7A6A}
+.bk-day{font-size:.68rem;color:#7A7A6A;margin-top:.2rem}
+.bk-meta{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin:.8rem 0;font-size:.8rem;color:#444}
+.bk-meta-lbl{font-size:.63rem;color:#7A7A6A;margin-bottom:.15rem}
+.bk-notes{font-size:.78rem;color:#555;margin-top:.6rem}
+.bk-link{display:inline-block;margin-top:.8rem;background:#E8E0D4;color:#5A7A8A;border-radius:8px;padding:.45rem .8rem;font-size:.74rem}
+.status-pill{font-size:.7rem;font-weight:500;padding:.22rem .7rem;border-radius:2rem;white-space:nowrap}
+.sp-pending{background:rgba(196,103,74,.12);color:#C4674A}
+.sp-booked{background:rgba(90,122,90,.15);color:#5A7A62}
+.sp-free{background:rgba(90,122,138,.12);color:#5A7A8A}
+
+/* Section header */
+.sec-head{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}
+.sec-title{font-family:'Noto Serif TC',serif;font-size:1rem;font-weight:600;white-space:nowrap}
+.sec-title.pend{color:#C4674A}
+.sec-title.booked{color:#5A7A62}
+.sec-line{flex:1;height:1px;background:#DDD8CE}
+
+/* Stay cards */
+.stay-card{background:#FDFAF6;border-radius:14px;padding:1rem 1.1rem;border:1px solid #DDD8CE;margin-bottom:.7rem;box-shadow:0 1px 8px rgba(61,90,71,.04)}
+.stay-pend{border:1.5px solid rgba(196,103,74,.3)}
+.stay-name{font-family:'Noto Serif TC',serif;font-size:.95rem;font-weight:600;color:#3D5A47}
+.stay-meta{font-size:.72rem;color:#7A7A6A;margin-top:.1rem}
+.stay-fields{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin:.6rem 0}
+.field-lbl{font-size:.63rem;color:#7A7A6A;margin-bottom:.2rem}
+.field-inp{width:100%;padding:.35rem .6rem;border:1.5px solid #DDD8CE;border-radius:8px;font-size:.8rem;background:white;color:#2A2A1E}
+.url-inp{width:100%;padding:.35rem .6rem;border:1.5px solid #DDD8CE;border-radius:8px;font-size:.8rem;background:white;color:#2A2A1E}
+.map-link{font-size:.74rem;color:#5A7A8A;display:inline-block;margin-top:.3rem}
+.status-sel{border:1.5px solid #DDD8CE;border-radius:8px;padding:.3rem .5rem;font-size:.74rem;background:white;font-family:inherit}
+.edit-btn{background:none;color:#7A7A6A;border:1px solid #DDD8CE;border-radius:8px;padding:.3rem .6rem;font-size:.72rem}
+.edit-btn.active{background:#3D5A47;color:white;border-color:#3D5A47}
+.sync-ok{color:#5A7A62;font-size:.72rem;margin-top:.4rem}
+
+/* Prep */
+.mem-tabs{display:flex;gap:.5rem;overflow-x:auto;margin-bottom:1.4rem;padding-bottom:.3rem;scrollbar-width:none}
+.mem-tabs::-webkit-scrollbar{display:none}
+.mem-btn{flex-shrink:0;background:white;color:#7A7A6A;border:2px solid #DDD8CE;border-radius:2rem;padding:.45rem 1.1rem;font-size:.8rem;white-space:nowrap;display:flex;align-items:center;gap:.4rem;transition:all .2s}
+.mem-btn.active{color:white;border-color:transparent}
+.mem-count{font-size:.62rem;padding:.1rem .4rem;border-radius:1rem;background:rgba(90,122,90,.15);color:#5A7A62}
+.mem-btn.active .mem-count{background:rgba(255,255,255,.25);color:white}
+.prep-section{background:#FDFAF6;border-radius:18px;padding:1.3rem;border:1px solid #DDD8CE;margin-bottom:1.2rem;box-shadow:0 2px 10px rgba(61,90,71,.05)}
+.prep-heading{font-family:'Noto Serif TC',serif;font-size:1rem;font-weight:600;color:#3D5A47;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.prep-info{border-radius:10px;padding:.8rem 1rem;font-size:.78rem;line-height:1.8;margin-bottom:1rem}
+.prep-info.gold{background:rgba(196,148,58,.07);border:1px solid rgba(196,148,58,.3)}
+.prep-info.slate{background:rgba(90,122,138,.07);border:1px solid rgba(90,122,138,.25)}
+.prep-info.pine{background:rgba(90,125,94,.07);border:1px solid rgba(127,168,118,.3)}
+.prep-info.terra{background:rgba(196,103,74,.07);border:1px solid rgba(196,103,74,.25)}
+.field-group{margin-bottom:.85rem}
+.field-group label{display:block;font-size:.7rem;color:#7A7A6A;letter-spacing:.07em;text-transform:uppercase;margin-bottom:.3rem}
+.field-group input,.field-group textarea{width:100%;padding:.65rem .9rem;border:1.5px solid #DDD8CE;border-radius:10px;font-size:.88rem;background:white;color:#2A2A1E}
+.field-group textarea{resize:none}
+
+/* Packing */
+.progress-bar{background:#DDD8CE;border-radius:2rem;height:6px;margin-bottom:1.2rem;overflow:hidden}
+.progress-fill{background:linear-gradient(90deg,#8AAE8A,#3D5A47);height:100%;border-radius:2rem;transition:width .4s ease}
+.legend{display:flex;gap:.6rem;margin-bottom:1rem;flex-wrap:wrap}
+.leg-pill{font-size:.65rem;padding:.15rem .6rem;border-radius:2rem;font-weight:500}
+.leg-must{background:rgba(196,103,74,.12);color:#C4674A}
+.leg-suggest{background:rgba(196,148,58,.1);color:#C4943A}
+.leg-opt{background:rgba(90,122,138,.1);color:#5A7A8A}
+.cat-btn{width:100%;background:#E8E0D4;border:none;border-radius:10px;padding:.7rem .9rem;display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem;font-family:inherit;font-size:.86rem;font-weight:500;color:#3D5A47}
+.cat-btn.open{background:rgba(61,90,71,.06)}
+.cat-count{font-size:.72rem;color:#7A7A6A;margin-right:.5rem}
+.cat-arrow{color:#7A7A6A;font-size:.8rem;transition:transform .2s}
+.cat-arrow.open{transform:rotate(180deg)}
+.cat-items{padding:.4rem .2rem}
+.chk-row{display:flex;align-items:flex-start;gap:.75rem;padding:.6rem .5rem;border-radius:10px;cursor:pointer;transition:background .15s}
+.chk-row:hover{background:rgba(90,122,90,.06)}
+.chk-box{width:22px;height:22px;border-radius:6px;border:2px solid #DDD8CE;background:white;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.5px;transition:all .18s}
+.chk-box.checked{border-color:transparent}
+.chk-mark{color:white;font-size:.72rem;font-weight:700}
+.chk-text{font-size:.84rem;color:#2A2A1E;flex:1}
+.chk-text.done{color:#888;text-decoration:line-through}
+.chk-level{font-size:.6rem;padding:.12rem .45rem;border-radius:2rem;white-space:nowrap;flex-shrink:0}
+.lv-must{background:rgba(196,103,74,.1);color:#C4674A}
+.lv-suggest{background:rgba(196,148,58,.1);color:#C4943A}
+.lv-opt{background:rgba(90,122,138,.1);color:#5A7A8A}
+
+/* Toast */
+.toast{position:fixed;bottom:5rem;left:50%;transform:translateX(-50%);background:#3D5A47;color:white;padding:.55rem 1.4rem;border-radius:2rem;font-size:.8rem;z-index:9999;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.18);pointer-events:none;opacity:0;transition:opacity .25s}
+.toast.show{opacity:1}
+
+/* Sync indicator */
+.syncing{font-size:.65rem;color:#8AAE8A;margin-left:.5rem;animation:pulse 1.4s ease infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+
+<!-- HERO SVG -->
+<div class="hero">
+<svg viewBox="0 0 390 260" style="width:100%;display:block" xmlns="http://www.w3.org/2000/svg">
+  <rect width="390" height="260" fill="#C8DAEA"/>
+  <ellipse cx="80" cy="50" rx="38" ry="18" fill="white" opacity=".7"/>
+  <ellipse cx="108" cy="45" rx="28" ry="16" fill="white" opacity=".7"/>
+  <ellipse cx="290" cy="38" rx="32" ry="15" fill="white" opacity=".6"/>
+  <path d="M0,260 L0,190 L60,100 L130,155 L200,78 L270,142 L340,88 L390,138 L390,260Z" fill="#5A7A8A" opacity=".45"/>
+  <path d="M200,78 L215,103 L185,103Z" fill="white" opacity=".7"/>
+  <path d="M340,88 L353,110 L327,110Z" fill="white" opacity=".6"/>
+  <path d="M0,260 L0,220 L80,142 L160,192 L240,128 L320,178 L390,153 L390,260Z" fill="#3D5A47" opacity=".8"/>
+  <ellipse cx="195" cy="248" rx="115" ry="20" fill="#A8C4CE" opacity=".7"/>
+  <g fill="#2A3D2E">
+    <polygon points="30,235 42,198 54,235"/><rect x="39" y="235" width="6" height="14" fill="#5A3A1A"/>
+    <polygon points="52,240 64,205 76,240"/><rect x="61" y="240" width="6" height="13" fill="#5A3A1A"/>
+    <polygon points="320,233 332,196 344,233"/><rect x="329" y="233" width="6" height="15" fill="#5A3A1A"/>
+    <polygon points="338,240 350,208 362,240"/><rect x="347" y="240" width="6" height="13" fill="#5A3A1A"/>
+  </g>
+  <g transform="translate(165,200)">
+    <ellipse cx="26" cy="28" rx="30" ry="20" fill="#7A9A5A"/>
+    <ellipse cx="26" cy="22" rx="24" ry="16" fill="#8AAE6A"/>
+    <rect x="14" y="28" width="24" height="20" fill="#C4943A" rx="2"/>
+    <rect x="22" y="30" width="6" height="12" fill="#3D2A0E" rx="1"/>
+  </g>
+  <g transform="translate(108,238)">
+    <ellipse cx="12" cy="8" rx="12" ry="8" fill="white"/>
+    <circle cx="20" cy="6" r="5" fill="white"/>
+    <circle cx="22" cy="4" r="4" fill="#3A3A2A"/>
+    <line x1="6" y1="14" x2="4" y2="22" stroke="#8A7A5A" stroke-width="1.5"/>
+    <line x1="10" y1="15" x2="9" y2="23" stroke="#8A7A5A" stroke-width="1.5"/>
+    <line x1="16" y1="15" x2="16" y2="23" stroke="#8A7A5A" stroke-width="1.5"/>
+  </g>
+  <g transform="translate(78,246)" opacity=".8">
+    <path d="M0,8 Q15,-4 30,6 Q20,16 0,8Z" fill="#5A7A8A"/>
+    <path d="M28,6 Q35,0 32,12Z" fill="#5A7A8A"/>
+    <circle cx="8" cy="7" r="1.5" fill="white"/>
+  </g>
+</svg>
+<div class="hero-text">
+  <div class="hero-title">紐西蘭</div>
+  <div class="hero-sub">New Zealand · 家族之旅</div>
+  <div class="hero-pills">
+    <span class="pill">🗓 10/08–24</span>
+    <span class="pill">17天 16夜</span>
+    <span class="pill">✈️ TPE ⇄ AKL</span>
+    <span class="pill gold">⭐ Hobbiton</span>
+    <span class="pill">🔭 觀星</span>
+    <span class="pill">🐋 賞鯨</span>
+  </div>
+</div>
+</div>
+
+<!-- FLIGHT BAR -->
+<div class="fbar">
+  <div><div class="fseg-dir">去程</div><div class="fseg-route">TPE→AKL</div><div class="fseg-time">10/07 23:55→10/08 19:00</div></div>
+  <div><div class="fseg-dir">回程</div><div class="fseg-route">AKL→TPE</div><div class="fseg-time">10/24 20:30→10/25 05:40</div></div>
+  <div><div class="fseg-dir">國內①</div><div class="fseg-route">AKL→ZQN</div><div class="fseg-time">10/09 待訂</div></div>
+  <div><div class="fseg-dir">國內②</div><div class="fseg-route">CHC→HLZ</div><div class="fseg-time">10/20 13:30–14:50</div></div>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <button class="nav-btn active" onclick="showTab('itinerary',this)">行程</button>
+  <button class="nav-btn" onclick="showTab('bookings',this)">待訂</button>
+  <button class="nav-btn" onclick="showTab('accommodation',this)">住宿 <span id="sync-ind" class="syncing" style="display:none">●</span></button>
+  <button class="nav-btn" onclick="showTab('prep',this)">行前準備</button>
+</nav>
+
+<!-- PANELS -->
+<div class="content">
+  <div id="panel-itinerary"></div>
+  <div id="panel-bookings" style="display:none"></div>
+  <div id="panel-accommodation" style="display:none"></div>
+  <div id="panel-prep" style="display:none"></div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bnav">
+  <button class="bnav-btn active" id="bn-itinerary" onclick="showTab('itinerary',null,this)">
+    <span class="bnav-icon">🗓</span><span class="bnav-label">行程</span><div class="bnav-dot" id="bd-itinerary"></div>
+  </button>
+  <button class="bnav-btn" id="bn-bookings" onclick="showTab('bookings',null,this)">
+    <span class="bnav-icon">📋</span><span class="bnav-label">待訂</span><div class="bnav-dot" id="bd-bookings" style="display:none"></div>
+  </button>
+  <button class="bnav-btn" id="bn-accommodation" onclick="showTab('accommodation',null,this)">
+    <span class="bnav-icon">🏡</span><span class="bnav-label">住宿</span><div class="bnav-dot" id="bd-accommodation" style="display:none"></div>
+  </button>
+  <button class="bnav-btn" id="bn-prep" onclick="showTab('prep',null,this)">
+    <span class="bnav-icon">🎒</span><span class="bnav-label">行前準備</span><div class="bnav-dot" id="bd-prep" style="display:none"></div>
+  </button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── CONFIG ─────────────────────────────────────────────────
+const API = 'https://script.google.com/macros/s/AKfycbyWbaZGCByTXtjb-FKNTYMRUEiDKEsSugN4e2PPVXUSoIeG6OMoUnzVXnzxnRX0o3tusA/exec';
+
+// ─── DATA ───────────────────────────────────────────────────
+const MEMBERS = ['怡婷','怡韻','怡佳','伊萱','晴瑩'];
+const MCOLORS = ['#3D5A47','#C4674A','#5A7A8A','#C4943A','#5A7A62'];
+
+const PACKING_CATS = [
+  {label:'📄 證件與財務',items:[
+    {name:'護照（有效期 ≥ 6 個月）',level:'必帶'},
+    {name:'NZeTA 入境許可（需提前線上申請）',level:'必帶'},
+    {name:'信用卡 Visa/Mastercard（建議2張）',level:'必帶'},
+    {name:'電子機票截圖／列印',level:'必帶'},
+    {name:'旅遊保險保單（含緊急救援電話）',level:'必帶'},
+    {name:'國際駕照（自駕必備）',level:'必帶'},
+    {name:'台灣健保卡',level:'建議'},
+    {name:'護照影本（與正本分開放）',level:'建議'},
+  ]},
+  {label:'💊 醫藥保健',items:[
+    {name:'個人慢性病藥（帶足17天份量）',level:'必帶'},
+    {name:'暈車藥',level:'必帶'},
+    {name:'感冒 / 退燒藥',level:'必帶'},
+    {name:'腸胃藥 / 止瀉藥',level:'必帶'},
+    {name:'止痛藥',level:'必帶'},
+    {name:'防曬乳 SPF50+（紐西蘭紫外線強）',level:'必帶'},
+    {name:'OK 繃 / 急救小包',level:'必帶'},
+    {name:'防蚊液',level:'建議'},
+    {name:'眼藥水 / 人工淚液',level:'建議'},
+    {name:'肌肉痠痛貼布（健行用）',level:'建議'},
+    {name:'暈船藥（峽灣遊船備用）',level:'建議'},
+  ]},
+  {label:'👕 衣物',items:[
+    {name:'防風防水外層',level:'必帶'},
+    {name:'保暖中層（刷毛或輕羽絨）',level:'必帶'},
+    {name:'舒適健行鞋（防滑底、已磨合）',level:'必帶'},
+    {name:'輕便雨衣（可折疊）',level:'必帶'},
+    {name:'帽子（防曬＋保暖）',level:'必帶'},
+    {name:'厚登山襪 × 3–4 雙',level:'必帶'},
+    {name:'手套（庫克山、Tekapo 夜觀星用）',level:'必帶'},
+    {name:'泳衣（Hot Water Beach）',level:'建議'},
+    {name:'輕便拖鞋 / 室內鞋',level:'建議'},
+    {name:'太陽眼鏡（偏光鏡）',level:'建議'},
+    {name:'圍巾 / 薄脖圍',level:'建議'},
+  ]},
+  {label:'🔌 電子與充電',items:[
+    {name:'萬用轉接頭（紐西蘭 Type I 三扁腳）',level:'必帶'},
+    {name:'手機充電線 + 充電頭',level:'必帶'},
+    {name:'行動電源（≤100Wh）',level:'必帶'},
+    {name:'相機 + 備用電池 + 記憶卡',level:'建議'},
+    {name:'多孔 USB 充電器',level:'建議'},
+    {name:'耳機',level:'建議'},
+  ]},
+  {label:'🌐 通訊導航',items:[
+    {name:'海外 SIM 卡 或 eSIM（Spark / Vodafone NZ）',level:'必帶'},
+    {name:'Google Maps 紐西蘭離線地圖（出發前下載）',level:'必帶'},
+    {name:'住宿 / 租車 / 緊急聯絡電話截圖',level:'必帶'},
+    {name:'WhatsApp / LINE 確認所有人安裝',level:'建議'},
+  ]},
+  {label:'💰 換匯',items:[
+    {name:'紐西蘭幣 NZD（建議備 NZD 200–300 現金）',level:'必帶'},
+    {name:'確認信用卡海外刷卡手續費',level:'建議'},
+    {name:'Wise 或 Revolut 卡（低匯損換匯）',level:'可選'},
+  ]},
+  {label:'🎒 行李雜物',items:[
+    {name:'行李秤（確認不超重）',level:'必帶'},
+    {name:'環保袋 / 折疊購物袋',level:'建議'},
+    {name:'個人保溫水瓶（自來水可直飲）',level:'建議'},
+    {name:'長途自駕備用零食',level:'建議'},
+    {name:'頸枕（長途飛機／巴士用）',level:'建議'},
+    {name:'眼罩 + 耳塞（飛機用）',level:'建議'},
+    {name:'夾鏈袋 × 數個（分裝液體）',level:'建議'},
+  ]},
+];
+const ALL_ITEMS = PACKING_CATS.flatMap(c=>c.items.map(i=>i.name));
+
+const INIT_BOOKINGS = [
+  {id:'f1',day:2,date:'10/09',zh:'✈️ 國內線：奧克蘭 → 皇后鎮',status:'待預訂',price:'NZD $150–250/人',deadline:'越早越好',assignee:'伊萱',url:'https://www.airnewzealand.co.nz/',notes:'建議上午班次，下午取車可前往 Glenorchy'},
+  {id:'f2',day:13,date:'10/20',zh:'✈️ 國內線：基督城 → 漢米頓',status:'已訂',price:'—',deadline:'—',assignee:'伊萱',url:'https://www.airnewzealand.co.nz/',notes:'13:30 出發，14:50 抵達漢米頓 ✅'},
+  {id:'r1',day:2,date:'10/09',zh:'🚗 南島租車（大型 MPV）',status:'待預訂',price:'待確認',deadline:'越早越好',assignee:'怡婷',url:'https://www.rentalcars.com/',notes:'皇后鎮機場取車 → 基督城還車（10/09–10/18）9天'},
+  {id:'r2',day:13,date:'10/20',zh:'🚗 北島租車（大型 MPV）',status:'待預訂',price:'待確認',deadline:'越早越好',assignee:'怡婷',url:'https://www.rentalcars.com/',notes:'漢米頓機場取車 → 奧克蘭還車（10/20–10/24）4天'},
+  {id:'b1',day:14,date:'10/21',zh:'⭐ 哈比村晚宴',status:'待預訂',price:'NZD $178/人',deadline:'立刻訂！',assignee:'怡婷',url:'https://www.hobbitontours.com/en/experiences/evening-banquet-tour/',notes:'名額有限，本次最大亮點，務必立刻預訂！'},
+  {id:'b2',day:10,date:'10/17',zh:'🐋 賞鯨行程',status:'待預訂',price:'NZD $165/人',deadline:'3 個月前',assignee:'伊萱',url:'https://www.whalewatch.co.nz/',notes:'天候取消率高，需準備備案活動'},
+  {id:'b3',day:3,date:'10/10',zh:'🚢 峽灣遊船',status:'待預訂',price:'NZD $85/人起',deadline:'出發前 1 個月',assignee:'',url:'https://www.realnz.com/en/experiences/scenic-cruises/milford-sound-scenic-cruises/',notes:'推薦含午餐套裝約 2.5hr；同步預訂巴士'},
+  {id:'b4',day:14,date:'10/21',zh:'🪲 懷托摩螢火蟲洞 09:00 場',status:'待預訂',price:'NZD $55/人',deadline:'出發前 2 週',assignee:'伊萱',url:'https://www.waitomo.com/',notes:'指定 09:00 場，結束後趕回 Matamata 再去哈比村'},
+  {id:'b5',day:8,date:'10/15',zh:'🔭 Mt John 觀星導覽',status:'待預訂',price:'NZD $195/人',deadline:'出發前 2 個月',assignee:'怡婷',url:'https://www.darkskyproject.co.nz/tours/',notes:'需確認當日天況才開團，建議提早預約'},
+  {id:'b6',day:4,date:'10/11',zh:'Skyline Gondola & Luge',status:'待預訂',price:'NZD $45/人起',deadline:'可現場購買',assignee:'',url:'https://www.skyline.co.nz/en/queenstown/',notes:'長輩可只搭纜車看夜景'},
+  {id:'b7',day:12,date:'10/19',zh:'🏔 城堡山 + 亞瑟山口 day trip',status:'免費',price:'免費（自駕）',deadline:'—',assignee:'',url:'https://www.doc.govt.nz/parks-and-recreation/places-to-go/canterbury/places/arthurs-pass-national-park/',notes:'自駕 day trip，瀑布步道約 1hr，建議早出發'},
+  {id:'b8',day:7,date:'10/14',zh:'Hooker Valley Track',status:'免費',price:'免費',deadline:'—',assignee:'',url:'https://www.doc.govt.nz/parks-and-recreation/places-to-go/canterbury/places/aoraki-mount-cook-national-park/things-to-do/tracks/hooker-valley-track/',notes:'約 3hr 來回；長輩可走前半段至吊橋即可'},
+];
+
+const INIT_STAYS = [
+  {id:'s1',dates:'10/08–09',zh:'奧克蘭機場附近飯店',nights:'1晚',status:'已訂',bookedBy:'伊萱',url:'',notes:''},
+  {id:'s2',dates:'10/09–12',zh:'皇后鎮飯店',nights:'3晚',status:'已訂',bookedBy:'伊萱',url:'',notes:''},
+  {id:'s3',dates:'10/12–13',zh:'Wanaka 住宿',nights:'1晚',status:'已訂',bookedBy:'怡婷',url:'https://maps.app.goo.gl/D9QpLGjbnijBn7EA9',notes:''},
+  {id:'s4',dates:'10/13–15',zh:'Aoraki Court 庫克山',nights:'2晚',status:'已訂',bookedBy:'怡婷',url:'https://maps.app.goo.gl/LixfTmR16L86CXiT9',notes:'🔴 最優先'},
+  {id:'s5',dates:'10/15–16',zh:'Tekapo 住宿',nights:'1晚',status:'已訂',bookedBy:'伊萱',url:'',notes:'🔴 高優先'},
+  {id:'s6',dates:'10/16–18',zh:'Kaikōura 住宿',nights:'2晚',status:'已訂',bookedBy:'怡婷',url:'https://maps.app.goo.gl/oKYSEiqGF9am5Ejc7',notes:'🔴 高優先'},
+  {id:'s7',dates:'10/18–20',zh:'基督城住宿',nights:'2晚',status:'待訂',bookedBy:'',url:'',notes:''},
+  {id:'s8',dates:'10/20–22',zh:'Matamata 住宿',nights:'2晚',status:'已訂',bookedBy:'怡婷',url:'https://www.airbnb.com.tw/rooms/21463260?unique_share_id=f08c3a4c-de34-4ced-9fae-b5308c841a8f&viralityEntryPoint=1&s=76',notes:'Airbnb · 🔴 高優先'},
+  {id:'s9',dates:'10/22–24',zh:'奧克蘭住宿',nights:'2晚',status:'待訂',bookedBy:'',url:'',notes:''},
+];
+
+const ITIN = [
+  {day:1,date:'10/08',dateEn:'Thu 08 Oct',zh:'抵達奧克蘭',en:'Arrival — Auckland',loc:'Auckland',island:'arrival',
+   acts:['✈️ 19:00 抵達奧克蘭國際機場 AKL','辦理入境、領取行李','前往機場附近飯店休息'],
+   note:'',accom:{name:'奧克蘭機場附近飯店',by:'伊萱',status:'已訂',detail:'1晚 10/08–09',url:''}},
+  {day:2,date:'10/09',dateEn:'Fri 09 Oct',zh:'奧克蘭 → 皇后鎮',en:'Auckland → Queenstown',loc:'Queenstown',island:'south',
+   acts:['✈️ 國內線 AKL → ZQN（待訂）','🚗 皇后鎮機場取南島租車（大型 MPV）','（視體力）前往 Glenorchy 湖邊散步（約 45 分）','湖邊晚餐，視體力彈性調整'],
+   note:'✈️ 國內線待訂（見待訂清單）',accom:{name:'皇后鎮飯店',by:'伊萱',status:'已訂',detail:'3晚 10/09–12',url:''}},
+  {day:3,date:'10/10',dateEn:'Sat 10 Oct',zh:'米爾福德峽灣一日遊',en:'Milford Sound Day Trip',loc:'Milford Sound',island:'south',
+   acts:['🚌 巴士前往 Milford Sound（約 4hr）','🚢 峽灣遊船 約 2–2.5hr','🚌 原路返回皇后鎮（約 4hr）','夜景散步 + 晚餐'],
+   note:'⭐ 需提前預訂峽灣遊船＋巴士',accom:{name:'皇后鎮飯店（續住）',by:'',status:'同上',detail:'',url:''}},
+  {day:4,date:'10/11',dateEn:'Sun 11 Oct',zh:'皇后鎮 · 箭鎮 · Skyline',en:'Queenstown — Arrowtown & Skyline',loc:'Queenstown',island:'south',
+   acts:['早上逛假日市集 🛒 Queenstown Sunday Market','🚗 前往 Arrowtown（約 20 分）騎腳踏車 2–3hr','Skyline Gondola 纜車 + Luge 滑車'],
+   note:'⭐ Queenstown Sunday Market',accom:{name:'皇后鎮飯店（續住）',by:'',status:'同上',detail:'',url:''}},
+  {day:5,date:'10/12',dateEn:'Mon 12 Oct',zh:'皇后鎮 → 瓦納卡',en:'Queenstown → Wanaka',loc:'Wanaka',island:'south',
+   acts:['🚗 Crown Range Road 景觀公路，停車拍照','Cardrona Hotel 歷史建築打卡','🚗 前往 Wanaka 市區（全程約 1.5hr）','Wanaka 湖散步 + That Wanaka Tree 孤獨樹'],
+   note:'',accom:{name:'Wanaka 住宿',by:'怡婷',status:'已訂',detail:'1晚 10/12–13',url:'https://maps.app.goo.gl/D9QpLGjbnijBn7EA9'}},
+  {day:6,date:'10/13',dateEn:'Tue 13 Oct',zh:'瓦納卡 → 庫克山',en:'Wanaka → Aoraki / Mt Cook',loc:'Mt Cook',island:'south',
+   acts:['🚗 Lake Pukaki 藍湖觀景點（約 1.5hr）📸','Tasman 冰川湖步道（約 1.5hr 來回）','🔭 晚上庫克山觀星'],
+   note:'',accom:{name:'Aoraki Court',by:'怡婷',status:'已訂',detail:'2晚 10/13–15',url:'https://maps.app.goo.gl/LixfTmR16L86CXiT9'}},
+  {day:7,date:'10/14',dateEn:'Wed 14 Oct',zh:'庫克山 · Hooker Valley',en:'Mt Cook — Hooker Valley Track',loc:'Mt Cook',island:'south',
+   acts:['🚶 Hooker Valley Track 健行 約 3hr 來回（長輩友善）','途經 3 座吊橋，終點眺望冰川湖','下午在村內輕鬆散步','🔭 晚上觀星（第二夜）'],
+   note:'',accom:{name:'Aoraki Court（續住）',by:'',status:'同上',detail:'',url:''}},
+  {day:8,date:'10/15',dateEn:'Thu 15 Oct',zh:'庫克山 → 特卡波',en:'Mt Cook → Lake Tekapo',loc:'Tekapo',island:'south',
+   acts:['🚗 前往 Lake Tekapo（約 1.5hr）','牧羊人教堂 Church of the Good Shepherd 📸','Lake Tekapo 湖畔散步','🔭 Mt John Observatory 觀星導覽（需預訂）'],
+   note:'',accom:{name:'Tekapo 住宿',by:'伊萱',status:'已訂',detail:'1晚 10/15–16',url:''}},
+  {day:9,date:'10/16',dateEn:'Fri 16 Oct',zh:'特卡波 → 凱庫拉',en:'Tekapo → Kaikōura',loc:'Kaikōura',island:'south',
+   acts:['🚗 Tekapo → Christchurch（約 2.5hr）','Christchurch 午餐休息 約 2hr','🚗 Christchurch → Kaikōura（約 2.5hr）','Kaikōura Peninsula Walkway 海豹步道（約 1hr）','🦞 晚餐吃新鮮龍蝦'],
+   note:'全程自駕約 5hr（含停靠），建議早出發',accom:{name:'Kaikōura 住宿',by:'怡婷',status:'已訂',detail:'2晚 10/16–18',url:'https://maps.app.goo.gl/oKYSEiqGF9am5Ejc7'}},
+  {day:10,date:'10/17',dateEn:'Sat 17 Oct',zh:'凱庫拉 · 賞鯨',en:'Kaikōura — Whale Watching',loc:'Kaikōura',island:'south',
+   acts:['🐋 早上賞鯨行程（需提前預訂）','下午海邊散步 / 咖啡廳','傍晚看日落'],
+   note:'⭐ 賞鯨天候影響大，請提早預訂',accom:{name:'Kaikōura 住宿（續住）',by:'',status:'同上',detail:'',url:''}},
+  {day:11,date:'10/18',dateEn:'Sun 18 Oct',zh:'凱庫拉 → 基督城',en:'Kaikōura → Christchurch',loc:'Christchurch',island:'south',
+   acts:['早上自由活動（可 Kayak 或海邊休息）','🚗 Kaikōura → Christchurch（約 2.5hr）','🚗 南島還車（基督城）','基督城市區休息'],
+   note:'',accom:{name:'基督城住宿',by:'',status:'待訂',detail:'2晚 10/18–20',url:''}},
+  {day:12,date:'10/19',dateEn:'Mon 19 Oct',zh:'基督城 · 城堡山 · 亞瑟山口',en:'Castle Hill & Arthurs Pass Day Trip',loc:'Christchurch',island:'south',
+   acts:['🚗 基督城 → 城堡山（約 1.5hr）石灰岩巨石群 📸','🚗 → 亞瑟山口村（約 30 分）','瀑布步道（約 1hr）','🚗 原路返回基督城（約 2hr）','基督城晚餐自由活動'],
+   note:'全程自駕約 5hr 來回，建議早出發',accom:{name:'基督城住宿（續住）',by:'',status:'同上',detail:'',url:''}},
+  {day:13,date:'10/20',dateEn:'Tue 20 Oct',zh:'基督城 → 漢米頓 → Matamata',en:'Christchurch → Hamilton → Matamata',loc:'Matamata',island:'north',
+   acts:['早上基督城市區自由活動','🚗 前往基督城機場（約 20 分）','✈️ CHC → HLZ 13:30 出發，14:50 抵達漢米頓','🚗 漢米頓機場取北島租車（大型 MPV）','🚗 漢米頓 → Matamata（約 1hr）','傍晚 check in 休息'],
+   note:'✈️ CHC → HLZ 已訂 13:30–14:50',accom:{name:'Matamata 住宿',by:'怡婷',status:'已訂',detail:'2晚 10/20–22',url:'https://www.airbnb.com.tw/rooms/21463260?unique_share_id=f08c3a4c-de34-4ced-9fae-b5308c841a8f&viralityEntryPoint=1&s=76'}},
+  {day:14,date:'10/21',dateEn:'Wed 21 Oct',zh:'螢火蟲洞 · 哈比村晚宴',en:'Waitomo Caves & Hobbiton Evening Banquet',loc:'Matamata',island:'north',
+   acts:['🚗 Matamata → 懷托摩螢火蟲洞（約 1hr）','🪲 螢火蟲洞 09:00 場（約 45 分）','🚗 返回 Matamata 休息（約 1hr）','⭐ Hobbiton Evening Banquet Tour 哈比村晚宴 🎉'],
+   note:'⭐ 本次最大亮點！哈比村晚宴務必立刻預訂',accom:{name:'Matamata 住宿（續住）',by:'',status:'同上',detail:'',url:''}},
+  {day:15,date:'10/22',dateEn:'Thu 22 Oct',zh:'Matamata → 奧克蘭',en:'Matamata → Auckland',loc:'Auckland',island:'north',
+   acts:['🚗 Matamata → 藍泉 Blue Spring，Putaruru（約 30 分）','Te Waihou Walkway 藍泉步道（約 1.5hr 來回）','🚗 前往奧克蘭（約 2hr）','抵達奧克蘭，晚餐自由活動'],
+   note:'',accom:{name:'奧克蘭住宿',by:'',status:'待訂',detail:'2晚 10/22–24',url:''}},
+  {day:16,date:'10/23',dateEn:'Fri 23 Oct',zh:'奧克蘭市區',en:'Auckland City Day',loc:'Auckland',island:'north',
+   acts:['Ponsonby 早午餐 ☕','Sky Tower 天空塔','購物 / 伴手禮（Queen St）','行李整理打包'],
+   note:'',accom:{name:'奧克蘭住宿（續住）',by:'',status:'同上',detail:'',url:''}},
+  {day:17,date:'10/24',dateEn:'Sat 24 Oct',zh:'返程',en:'Departure Day',loc:'Auckland',island:'departure',
+   acts:['白天自由活動','🚗 北島還車（奧克蘭）','✈️ 建議 17:30 前抵達奧克蘭國際機場 AKL','✈️ 20:30 起飛 → 10/25 05:40 抵達桃園機場'],
+   note:'建議 17:30 前抵達機場完成 check-in',accom:{name:'—',by:'',status:'—',detail:'',url:''}},
+];
+
+// Climate reference
+const CLIMATE = {
+  Auckland:{max:19,min:13,desc:'溫和，偶有陣雨',icon:'🌤'},
+  Queenstown:{max:16,min:6,desc:'涼爽，早晚冷',icon:'⛅'},
+  'Milford Sound':{max:13,min:7,desc:'多雨，帶雨衣',icon:'🌧'},
+  Wanaka:{max:17,min:6,desc:'晴多雲，早晚涼',icon:'🌤'},
+  'Mt Cook':{max:12,min:2,desc:'冷，可能降雪',icon:'🌨'},
+  Tekapo:{max:14,min:3,desc:'晴，夜晚極冷',icon:'☀️'},
+  'Kaikōura':{max:17,min:10,desc:'溫和，海風大',icon:'🌤'},
+  Christchurch:{max:17,min:9,desc:'多風，晴時多雲',icon:'⛅'},
+  Rotorua:{max:18,min:9,desc:'溫暖，偶有霧',icon:'🌤'},
+  Matamata:{max:18,min:9,desc:'溫和，草地濕潤',icon:'🌤'},
+};
+
+// ─── STATE ──────────────────────────────────────────────────
+let stays = JSON.parse(JSON.stringify(INIT_STAYS));
+let bookings = JSON.parse(JSON.stringify(INIT_BOOKINGS));
+let pack = JSON.parse(localStorage.getItem('nz6_pack')||'{}');
+let prepData = JSON.parse(localStorage.getItem('nz6_prep')||'{}');
+let currentMember = MEMBERS[0];
+let openCats = {};
+let editStays = {};
+let currentTab = 'itinerary';
+let weather = {};
+
+// ─── UTILS ──────────────────────────────────────────────────
+function el(id){ return document.getElementById(id); }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function toast(msg){
+  const t = el('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2200);
+}
+
+// ─── GOOGLE SHEETS ──────────────────────────────────────────
+async function sheetsGet(sheet){
+  try{
+    const r = await fetch(API+'?sheet='+sheet);
+    return await r.json();
+  }catch{return null;}
+}
+async function sheetsSave(sheet, data){
+  try{
+    const r = await fetch(API,{method:'POST',body:JSON.stringify({sheet,action:'save_all',data})});
+    return await r.json();
+  }catch{return null;}
+}
+
+async function loadFromSheets(){
+  const ind = el('sync-ind');
+  ind.style.display='inline';
+  const [s,b] = await Promise.all([sheetsGet('stays'),sheetsGet('bookings')]);
+  if(s && Array.isArray(s) && s.length>0) stays=s;
+  if(b && Array.isArray(b) && b.length>0) bookings=b;
+  ind.style.display='none';
+  if(currentTab==='accommodation') renderAccom();
+  if(currentTab==='bookings') renderBookings();
+}
+
+async function saveStays(){
+  el('sync-ind').style.display='inline';
+  await sheetsSave('stays',stays);
+  el('sync-ind').style.display='none';
+  toast('✅ 已同步到雲端');
+}
+async function saveBookings(){
+  el('sync-ind').style.display='inline';
+  await sheetsSave('bookings',bookings);
+  el('sync-ind').style.display='none';
+  toast('✅ 已同步到雲端');
+}
+
+// ─── WEATHER ────────────────────────────────────────────────
+const COORDS={
+  Auckland:{lat:-36.8485,lon:174.7633},Queenstown:{lat:-45.0312,lon:168.6626},
+  'Milford Sound':{lat:-44.6732,lon:167.9250},Wanaka:{lat:-44.7032,lon:169.1322},
+  'Mt Cook':{lat:-43.7350,lon:170.0967},Tekapo:{lat:-44.0067,lon:170.4782},
+  'Kaikōura':{lat:-42.4004,lon:173.9603},Christchurch:{lat:-43.5321,lon:172.6362},
+  Matamata:{lat:-37.8058,lon:175.7739},
+};
+const WI={0:'☀️',1:'🌤',2:'⛅',3:'☁️',45:'🌫',51:'🌦',53:'🌦',55:'🌧',61:'🌧',63:'🌧',65:'🌧',71:'🌨',80:'🌦',81:'🌧',95:'⛈'};
+const WD={0:'晴天',1:'晴時多雲',2:'多雲',3:'陰天',45:'有霧',51:'毛毛雨',53:'毛毛雨',55:'毛毛雨',61:'小雨',63:'中雨',65:'大雨',71:'小雪',80:'陣雨',81:'陣雨',95:'雷陣雨'};
+
+async function loadWeather(){
+  for(const d of ITIN){
+    const cl=CLIMATE[d.loc];
+    if(cl) weather[d.day]={max:cl.max,min:cl.min,desc:cl.desc,icon:cl.icon,isReal:false};
+    const c=COORDS[d.loc]; if(!c) continue;
+    const [m,dy]=d.date.split('/').map(Number);
+    const iso=`2026-${String(m).padStart(2,'0')}-${String(dy).padStart(2,'0')}`;
+    try{
+      const diff=(new Date(2026,m-1,dy)-new Date())/(864e5);
+      if(diff<0||diff>16) continue;
+      const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${c.lat}&longitude=${c.lon}&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_mean&timezone=Pacific%2FAuckland&start_date=${iso}&end_date=${iso}`);
+      const j=await r.json();
+      if(j.daily) weather[d.day]={code:j.daily.weathercode[0],max:Math.round(j.daily.temperature_2m_max[0]),min:Math.round(j.daily.temperature_2m_min[0]),rain:j.daily.precipitation_probability_mean[0],isReal:true};
+    }catch{}
+  }
+  if(currentTab==='itinerary') renderItinerary();
+}
+
+// ─── TAB SWITCHING ──────────────────────────────────────────
+function showTab(tab, navEl, bnavEl){
+  currentTab = tab;
+  ['itinerary','bookings','accommodation','prep'].forEach(t=>{
+    el('panel-'+t).style.display = t===tab?'':'none';
+    // Nav buttons
+    document.querySelectorAll('.nav-btn').forEach((b,i)=>{
+      const tabs=['itinerary','bookings','accommodation','prep'];
+      b.classList.toggle('active', tabs[i]===tab);
+    });
+    // Bottom nav
+    const bn=el('bn-'+t);
+    if(bn) bn.classList.toggle('active', t===tab);
+    const bd=el('bd-'+t);
+    if(bd) bd.style.display=t===tab?'':'none';
+  });
+  // Render if needed
+  if(tab==='itinerary'&&!el('panel-itinerary').innerHTML) renderItinerary();
+  if(tab==='bookings') renderBookings();
+  if(tab==='accommodation') renderAccom();
+  if(tab==='prep') renderPrep();
+}
+
+// ─── ITINERARY ──────────────────────────────────────────────
+function weatherHTML(day){
+  const w=weather[day];
+  if(!w) return '<div class="weather-bar"><span style="font-size:.72rem;color:#7A7A6A;animation:pulse 1.4s ease infinite">天氣載入中…</span></div>';
+  const icon = w.isReal?(WI[w.code]||'🌡'):w.icon;
+  const desc = w.isReal?(WD[w.code]||''):w.desc;
+  const rain = w.rain!=null?` · ☔ ${w.rain}%`:'';
+  const badge = w.isReal?'<span class="w-badge w-real">即時預報</span>':'<span class="w-badge w-climate">氣候參考</span>';
+  return `<div class="weather-bar"><span class="w-icon">${icon}</span><div style="flex:1"><div class="w-temp">${w.max}° / ${w.min}°</div><div class="w-desc">${desc}${rain}</div></div>${badge}</div>`;
+}
+
+function accomHTML(a){
+  if(a.name==='—') return '';
+  let badge='';
+  if(a.status==='已訂') badge=`<span class="badge badge-booked">✓ 已訂 · ${esc(a.by)}</span>`;
+  else if(a.status==='待訂') badge='<span class="badge badge-pending">⚠ 待訂</span>';
+  else if(a.status==='同上') badge='<span class="badge badge-same">同上</span>';
+  const map=a.url?`<a href="${esc(a.url)}" target="_blank" class="map-link">📍 開啟地圖</a>`:'';
+  return `<div class="accom-box"><span style="font-size:1rem;flex-shrink:0;margin-top:2px">🏡</span><div><div class="accom-name">${esc(a.name)}${badge}</div><div class="accom-detail">${esc(a.detail)}</div>${map}</div></div>`;
+}
+
+function renderItinerary(){
+  const IL={south:'🏔 南島 South Island',north:'🌿 北島 North Island'};
+  let html='';
+  // Stats
+  html+=`<div class="stats">
+    <div class="stat-card"><div class="stat-icon">🗺️</div><div class="stat-lbl">路線</div><div class="stat-val">南島 + 北島</div></div>
+    <div class="stat-card"><div class="stat-icon">🚗</div><div class="stat-lbl">租車</div><div class="stat-val">2 段自駕</div></div>
+    <div class="stat-card"><div class="stat-icon">🏨</div><div class="stat-lbl">城鎮</div><div class="stat-val">11 個城鎮</div></div>
+    <div class="stat-card"><div class="stat-icon">⭐</div><div class="stat-lbl">亮點</div><div class="stat-val">峽灣·哈比村·觀星</div></div>
+  </div>`;
+  let lastI=null;
+  for(const d of ITIN){
+    if(IL[d.island]&&d.island!==lastI){
+      html+=`<div class="idiv"><hr><div class="idiv-tag">${IL[d.island]}</div><hr></div>`;
+      lastI=d.island;
+    }
+    const w=weatherHTML(d.day);
+    const note=d.note?`<div class="note-box">${esc(d.note)}</div>`:'';
+    const acts=d.acts.map(a=>`<li><span class="act-dot"></span>${esc(a)}</li>`).join('');
+    const accom=accomHTML(d.accom);
+    html+=`<div class="t-item">
+      <div class="t-left">
+        <div class="t-bubble"><div class="t-num">${d.day}</div><div class="t-day">DAY</div></div>
+        <div class="t-stem"></div>
+      </div>
+      <div class="t-card">
+        <div class="card-date">${esc(d.dateEn)}</div>
+        <div class="card-title">${esc(d.zh)}</div>
+        <div class="card-en">${esc(d.en)}</div>
+        ${d.island!=='departure'?w:''}
+        ${note}
+        <ul class="acts">${acts}</ul>
+        ${accom}
+      </div>
+    </div>`;
+  }
+  el('panel-itinerary').innerHTML=html;
+}
+
+// ─── BOOKINGS ───────────────────────────────────────────────
+function renderBookings(){
+  const spClass={待預訂:'sp-pending',已訂:'sp-booked',免費:'sp-free'};
+  const cardClass={待預訂:'',已訂:'booked',免費:'free'};
+  let html=`<div style="font-family:'Noto Serif TC',serif;font-size:1.5rem;font-weight:700;color:#3D5A47;margin-bottom:.4rem">待預訂清單</div>
+  <div style="font-size:.82rem;color:#7A7A6A;margin-bottom:1.2rem">共 ${bookings.length} 項 · 已訂 ${bookings.filter(b=>b.status==='已訂').length} · 待訂 ${bookings.filter(b=>b.status==='待預訂').length}</div>`;
+  for(const b of bookings){
+    const sp=spClass[b.status]||'sp-pending';
+    const cc=cardClass[b.status]||'';
+    html+=`<div class="bk-card ${cc}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:.6rem;margin-bottom:.6rem">
+        <div style="flex:1">
+          <div class="bk-title">${esc(b.zh)}</div>
+          <div class="bk-day">Day ${b.day} · ${esc(b.date)}</div>
+        </div>
+        <select class="status-sel" data-bk-id="${b.id}" data-bk-status>
+          ${['待預訂','已訂','免費'].map(o=>`<option${o===b.status?' selected':''}>${o}</option>`).join('')}
+        </select>
+      </div>
+      <div class="bk-meta">
+        <div><div class="bk-meta-lbl">💰 費用</div>${esc(b.price)}</div>
+        <div><div class="bk-meta-lbl">⏰ 截止</div>${esc(b.deadline)}</div>
+        <div><div class="bk-meta-lbl">👤 負責人</div>
+          <input class="field-inp" data-bk-id="${b.id}" data-bk-field="assignee" value="${esc(b.assignee)}" placeholder="未指定" style="margin-top:.2rem">
+        </div>
+        <div><div class="bk-meta-lbl">📝 備注</div>
+          <input class="field-inp" data-bk-id="${b.id}" data-bk-field="notes" value="${esc(b.notes)}" placeholder="備注" style="margin-top:.2rem">
+        </div>
+      </div>
+      ${b.url?`<a href="${esc(b.url)}" target="_blank" class="bk-link">🔗 前往官網預訂</a>`:''}
+    </div>`;
+  }
+  el('panel-bookings').innerHTML=html;
+
+  // Bind status change
+  el('panel-bookings').querySelectorAll('[data-bk-status]').forEach(sel=>{
+    sel.addEventListener('change',function(){
+      const b=bookings.find(x=>x.id===this.dataset.bkId);
+      if(b){ b.status=this.value; saveBookings().then(()=>renderBookings()); }
+    });
+  });
+  // Bind field change
+  el('panel-bookings').querySelectorAll('[data-bk-field]').forEach(inp=>{
+    inp.addEventListener('change',function(){
+      const b=bookings.find(x=>x.id===this.dataset.bkId);
+      if(b){ b[this.dataset.bkField]=this.value; saveBookings(); }
+    });
+  });
+}
+
+// ─── ACCOMMODATION ──────────────────────────────────────────
+function renderAccom(){
+  const pending=stays.filter(s=>s.status==='待訂');
+  const booked=stays.filter(s=>s.status==='已訂');
+  let html=`<div style="font-family:'Noto Serif TC',serif;font-size:1.5rem;font-weight:700;color:#3D5A47;margin-bottom:1.2rem">住宿總覽</div>`;
+
+  // Pending
+  html+=`<div class="sec-head"><div class="sec-title pend">⚠ 待訂（${pending.length}）</div><div class="sec-line"></div></div>`;
+  for(const s of pending){
+    html+=stayCardHTML(s,true);
+  }
+
+  // Booked
+  html+=`<div class="sec-head" style="margin-top:1.5rem"><div class="sec-title booked">✓ 已訂（${booked.length}）</div><div class="sec-line"></div></div>`;
+  for(const s of booked){
+    html+=stayCardHTML(s,false);
+  }
+  el('panel-accommodation').innerHTML=html;
+  // Bind events
+  el('panel-accommodation').querySelectorAll('[data-stay-status]').forEach(sel=>{
+    sel.addEventListener('change',function(){
+      const id=this.dataset.stayId;
+      const s=stays.find(x=>x.id===id);
+      if(s){ s.status=this.value; saveStays().then(()=>renderAccom()); }
+    });
+  });
+  el('panel-accommodation').querySelectorAll('[data-stay-field]').forEach(inp=>{
+    inp.addEventListener('change',function(){
+      const id=this.dataset.stayId;
+      const field=this.dataset.stayField;
+      const s=stays.find(x=>x.id===id);
+      if(s){ s[field]=this.value; saveStays(); }
+    });
+  });
+  el('panel-accommodation').querySelectorAll('[data-edit-stay]').forEach(btn=>{
+    btn.addEventListener('click',function(){
+      const id=this.dataset.editStay;
+      editStays[id]=!editStays[id];
+      renderAccom();
+    });
+  });
+}
+
+function stayCardHTML(s, isPending){
+  const isEdit=editStays[s.id];
+  const mapLink=s.url?`<a href="${esc(s.url)}" target="_blank" class="map-link">📍 開啟地圖 →</a>`:'';
+  let inner='';
+  if(isPending||isEdit){
+    inner=`<div class="stay-fields">
+      <div><div class="field-lbl">👤 負責人</div><input class="field-inp" data-stay-id="${s.id}" data-stay-field="bookedBy" value="${esc(s.bookedBy)}" placeholder="未指定"></div>
+      <div><div class="field-lbl">📝 備注</div><input class="field-inp" data-stay-id="${s.id}" data-stay-field="notes" value="${esc(s.notes)}" placeholder="備注"></div>
+    </div>
+    <div style="margin-bottom:.4rem"><div class="field-lbl">📍 地點連結</div><input class="url-inp" data-stay-id="${s.id}" data-stay-field="url" value="${esc(s.url)}" placeholder="貼上 Google Maps 連結"></div>
+    <select class="status-sel" data-stay-id="${s.id}" data-stay-status>${['待訂','已訂'].map(o=>`<option${o===s.status?' selected':''}>${o}</option>`).join('')}</select>
+    ${s.url?mapLink:''}`;
+  } else {
+    inner=`<div style="display:flex;align-items:center;gap:.5rem;margin-top:.3rem">
+      <span class="badge badge-booked">✓ 已訂${s.bookedBy?' · '+esc(s.bookedBy):''}</span>
+    </div>
+    ${s.url?mapLink:''}`;
+  }
+  return `<div class="stay-card ${isPending?'stay-pend':''}">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem">
+      <div style="flex:1">
+        <div class="stay-name">${esc(s.zh)}</div>
+        <div class="stay-meta">${esc(s.dates)} · ${esc(s.nights)}</div>
+      </div>
+      ${!isPending?`<button class="edit-btn${isEdit?' active':''}" data-edit-stay="${s.id}">${isEdit?'✓ 完成':'✏️'}</button>`:''}
+    </div>
+    ${inner}
+  </div>`;
+}
+
+// ─── PREP ───────────────────────────────────────────────────
+function renderPrep(){
+  const m=currentMember;
+  const mp=pack[m]||{};
+  const md=prepData[m]||{};
+  const done=ALL_ITEMS.filter(i=>mp[i]).length;
+  const mci=MEMBERS.indexOf(m);
+  const mc=MCOLORS[mci]||'#3D5A47';
+
+  // Member tabs
+  let tabsHtml='<div class="mem-tabs">';
+  MEMBERS.forEach((mem,i)=>{
+    const mp2=pack[mem]||{};
+    const d2=ALL_ITEMS.filter(i=>mp2[i]).length;
+    const active=mem===m;
+    const col=MCOLORS[i];
+    tabsHtml+=`<button class="mem-btn${active?' active':''}" onclick="setMember('${mem}')" style="${active?`background:${col};border-color:${col}`:''}">
+      ${esc(mem)} <span class="mem-count">${d2}/${ALL_ITEMS.length}</span>
+    </button>`;
+  });
+  tabsHtml+='</div>';
+
+  // Prep sections
+  function field(label,fld,placeholder,type='text'){
+    return `<div class="field-group"><label>${label}</label><input type="${type}" value="${esc(md[fld]||'')}" placeholder="${placeholder}" onchange="updatePrep('${m}','${fld}',this.value)"></div>`;
+  }
+  function ta(label,fld,placeholder){
+    return `<div class="field-group"><label>${label}</label><textarea rows="2" placeholder="${placeholder}" onchange="updatePrep('${m}','${fld}',this.value)">${esc(md[fld]||'')}</textarea></div>`;
+  }
+
+  let sectionsHtml=`
+  <div class="prep-section">
+    <div class="prep-heading">🛂 簽證 / NZeTA 申請</div>
+    <div class="prep-info gold"><strong style="color:#C4943A">⚠ 台灣護照免簽但需申請 NZeTA</strong><br>費用 NZD $23 · 建議出發前 <strong>1個月</strong>申請<br>
+    官網：<a href="https://www.immigration.govt.nz/new-zealand-visas/apply-for-a-visa/about-visa/nzeta" target="_blank">immigration.govt.nz → NZeTA</a></div>
+    ${field('NZeTA 申請狀態','nzetaStatus','未申請 / 已申請 / 已核准')}
+    ${field('NZeTA 申請日期','nzetaDate','例：2026-09-01')}
+    ${field('護照號碼','passport','A12345678')}
+    ${field('護照到期日','passportExpiry','','date')}
+  </div>
+  <div class="prep-section">
+    <div class="prep-heading">🛡 旅遊保險</div>
+    <div class="prep-info slate">✓ 海外突發疾病醫療　✓ 緊急醫療後送<br>✓ 班機延誤／取消　　✓ 行李遺失</div>
+    ${field('保險公司','insuranceCo','例：富邦產險、國泰')}
+    ${field('保單號碼','insurancePolicy','保單號碼')}
+    ${field('24小時緊急救援電話','insuranceHotline','+886-xx-xxxx-xxxx')}
+    ${field('保險期間','insurancePeriod','2026/10/07–10/25')}
+  </div>
+  <div class="prep-section">
+    <div class="prep-heading">💱 換匯規劃</div>
+    <div class="prep-info pine">✓ 現金 NZD 200–300（市場、小店用）<br>✓ 信用卡為主 · ✓ 可考慮 Wise 卡低匯損</div>
+    ${field('已換金額 NZD','exchangeAmt','例：NZD 300')}
+    ${field('換匯匯率','exchangeRate','例：1 NZD = 20.5 TWD')}
+  </div>
+  <div class="prep-section">
+    <div class="prep-heading">🆘 緊急聯絡資訊</div>
+    <div class="prep-info terra">🇳🇿 紐西蘭緊急電話：<strong>111</strong><br>🇹🇼 外交部急難救助：<strong>+886-800-085-095</strong><br>駐奧克蘭辦事處：<strong>+64-9-303-3903</strong></div>
+    ${field('台灣緊急聯絡人','emergencyContact','姓名')}
+    ${field('緊急聯絡人電話','emergencyPhone','+886 9xx xxx xxx')}
+    ${field('血型','bloodType','例：A型 Rh+')}
+    ${ta('醫療需求 / 慢性病','medical','高血壓、糖尿病用藥…')}
+    ${ta('飲食需求 / 過敏','dietary','素食、對XX過敏…')}
+  </div>`;
+
+  // Packing
+  const pct=Math.round((done/ALL_ITEMS.length)*100);
+  let packHtml=`<div class="prep-section">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">
+      <div class="prep-heading" style="margin:0">🧳 行李清單</div>
+      <div style="font-size:.76rem;color:#7A7A6A">${done}/${ALL_ITEMS.length}</div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+    <div class="legend">
+      <span class="leg-pill leg-must">必帶</span>
+      <span class="leg-pill leg-suggest">建議</span>
+      <span class="leg-pill leg-opt">可選</span>
+    </div>`;
+  PACKING_CATS.forEach((cat,ci)=>{
+    const catDone=cat.items.filter(it=>mp[it.name]).length;
+    const isOpen=openCats[ci];
+    packHtml+=`<button class="cat-btn${isOpen?' open':''}" onclick="toggleCat(${ci})">
+      <span>${cat.label}</span>
+      <span><span class="cat-count">${catDone}/${cat.items.length}</span><span class="cat-arrow${isOpen?' open':''}">▾</span></span>
+    </button>`;
+    if(isOpen){
+      packHtml+='<div class="cat-items">';
+      cat.items.forEach(item=>{
+        const checked=mp[item.name]||false;
+        const lvClass={必帶:'lv-must',建議:'lv-suggest',可選:'lv-opt'}[item.level]||'lv-opt';
+        packHtml+=`<div class="chk-row" onclick="togglePack('${m}','${item.name.replace(/'/g,"\'")}')">
+          <div class="chk-box${checked?' checked':''}" style="${checked?`background:${mc};border-color:${mc}`:''}">
+            ${checked?`<span class="chk-mark">✓</span>`:''}
+          </div>
+          <span class="chk-text${checked?' done':''}">${esc(item.name)}</span>
+          <span class="chk-level ${lvClass}">${item.level}</span>
+        </div>`;
+      });
+      packHtml+='</div>';
+    }
+  });
+  packHtml+=`<div style="font-size:.72rem;color:#5A7A62;text-align:right;padding:.5rem 0">✓ 所有資料自動儲存</div></div>`;
+
+  el('panel-prep').innerHTML=tabsHtml+sectionsHtml+packHtml;
+}
+
+// ─── PREP ACTIONS ───────────────────────────────────────────
+function setMember(m){
+  currentMember=m;
+  renderPrep();
+}
+function updatePrep(m,field,value){
+  if(!prepData[m]) prepData[m]={};
+  prepData[m][field]=value;
+  localStorage.setItem('nz6_prep',JSON.stringify(prepData));
+}
+function toggleCat(ci){
+  openCats[ci]=!openCats[ci];
+  renderPrep();
+}
+function togglePack(m,item){
+  if(!pack[m]) pack[m]={};
+  pack[m][item]=!pack[m][item];
+  localStorage.setItem('nz6_pack',JSON.stringify(pack));
+  renderPrep();
+}
+
+// ─── INIT ───────────────────────────────────────────────────
+showTab('itinerary');
+loadFromSheets();
+loadWeather();
+</script>
+</body>
+</html>
